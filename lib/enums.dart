@@ -13,3 +13,8 @@ enum ContentTypes{
   ParsedJson,
   PostResponse
 }
+
+enum CameraMediaTypes{
+  Image,
+  Video
+}

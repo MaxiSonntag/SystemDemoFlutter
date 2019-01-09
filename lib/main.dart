@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:system_flutter/camera/camera.dart';
 import 'package:system_flutter/cloud_sync/cloud_sync_page.dart';
-import 'package:system_flutter/enums.dart';
 import 'package:system_flutter/local_notifications/local_notifications_page.dart';
 import 'package:system_flutter/networking/networking.dart';
 import 'package:system_flutter/push_notifications/push_notifications_page.dart';
@@ -81,11 +81,34 @@ class _SystemHomePageState extends State<SystemHomePage> {
         target: CloudSyncPage()
     );
     drawerElements.add(item5);
+
+    final item6 = DrawerItem(
+        title: "Camera",
+        icon: Icon(Icons.camera_alt),
+        target: NetworkingPage()
+    );
+    drawerElements.add(item6);
   }
 
 
   Widget _getBody(){
     return drawerElements[_selectedDrawerItem].target;
+  }
+
+  _checkForRoutingPages(){
+
+    Widget targetPage;
+
+    switch(_selectedDrawerItem){
+      case 3:
+        targetPage = FilesPage();
+        break;
+      case 5:
+        targetPage = CameraPage();
+        break;
+    }
+      Navigator.push(context, MaterialPageRoute(builder: (context){return targetPage;}));
+      _selectedDrawerItem = 0;
   }
 
   @override
@@ -122,10 +145,7 @@ class _SystemHomePageState extends State<SystemHomePage> {
                   setState(() {
                     _selectedDrawerItem = index-1;
                     Navigator.pop(context);
-                    if(_selectedDrawerItem == 3){
-                      Navigator.push(context, MaterialPageRoute(builder: (context){return FilesPage();}));
-                      _selectedDrawerItem = 0;
-                    }
+                    _checkForRoutingPages();
                   });
                 },
                 selected: _selectedDrawerItem == index-1,
