@@ -30,6 +30,11 @@ dependencies:
   camera: ^0.2.8
   video_player: ^0.8.0
   barcode_scan: ^0.0.8
+  contacts_service: ^0.0.9
+  simple_permissions: ^0.1.9
+  flutter_sms: ^0.0.4
+  url_launcher: ^4.0.3
+  flutter_blue: ^0.4.2
 
 
 dev_dependencies:

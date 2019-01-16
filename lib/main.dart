@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:system_flutter/camera/camera.dart';
 import 'package:system_flutter/cloud_sync/cloud_sync_page.dart';
+import 'package:system_flutter/connectivity/connectivity_page.dart';
 import 'package:system_flutter/local_notifications/local_notifications_page.dart';
 import 'package:system_flutter/networking/networking.dart';
 import 'package:system_flutter/push_notifications/push_notifications_page.dart';
 import 'package:system_flutter/files/files_page.dart';
+import 'package:system_flutter/contacts/contacts_page.dart';
 
 void main() => runApp(SystemApp());
 
@@ -88,6 +90,20 @@ class _SystemHomePageState extends State<SystemHomePage> {
         target: NetworkingPage()
     );
     drawerElements.add(item6);
+
+    final item7 = DrawerItem(
+        title: "Contacts",
+        icon: Icon(Icons.contacts),
+        target: ContactsPage()
+    );
+    drawerElements.add(item7);
+
+    final item8 = DrawerItem(
+        title: "Connectivity",
+        icon: Icon(Icons.send),
+        target: ConnectivityPage()
+    );
+    drawerElements.add(item8);
   }
 
 
@@ -107,8 +123,11 @@ class _SystemHomePageState extends State<SystemHomePage> {
         targetPage = CameraPage();
         break;
     }
+    if(targetPage != null){
       Navigator.push(context, MaterialPageRoute(builder: (context){return targetPage;}));
       _selectedDrawerItem = 0;
+    }
+
   }
 
   @override

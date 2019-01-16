@@ -18,3 +18,8 @@ enum CameraMediaTypes{
   Image,
   Video
 }
+
+enum DialogType{
+  Info,
+  BT
+}
