@@ -193,7 +193,10 @@ class BluetoothPageState extends State<BluetoothPage> {
     deviceConnections.forEach((idx, conn){
       conn.cancel();
     });
-    subscription.cancel();
+    if(subscription != null){
+      subscription.cancel();
+    }
+
   }
 
   @override
