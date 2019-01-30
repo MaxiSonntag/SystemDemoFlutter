@@ -119,7 +119,10 @@ class BluetoothPageState extends State<BluetoothPage> {
       case DialogType.Info:{
         title = "Info";
         content = "This plugin only supports Bluetooth LE. If there is no BT LE device near you, you will possibly see several unnamed networks, like Wifi or Bluetooth Classic devices. If connection succeeds, you may see the devices name the next time you scan. (iOS only)";
+        break;
       }
+      default:
+        break;
     }
 
 
