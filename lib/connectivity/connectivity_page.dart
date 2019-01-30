@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:system_flutter/connectivity/bluetooth_page.dart';
+import 'package:system_flutter/connectivity/nfc_page.dart';
 
 class ConnectivityPage extends StatefulWidget{
 
@@ -18,7 +19,7 @@ class ConnectivityPageState extends State<ConnectivityPage>{
     if(this._currentIndex == 0){
       return BluetoothPage();
     }
-    return Container(color: Colors.purple,);
+    return NFCPage();
   }
 
   @override

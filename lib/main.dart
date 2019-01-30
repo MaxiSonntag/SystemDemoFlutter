@@ -3,6 +3,7 @@ import 'package:system_flutter/camera/camera.dart';
 import 'package:system_flutter/cloud_sync/cloud_sync_page.dart';
 import 'package:system_flutter/connectivity/connectivity_page.dart';
 import 'package:system_flutter/local_notifications/local_notifications_page.dart';
+import 'package:system_flutter/location/location_page.dart';
 import 'package:system_flutter/networking/networking.dart';
 import 'package:system_flutter/push_notifications/push_notifications_page.dart';
 import 'package:system_flutter/files/files_page.dart';
@@ -104,6 +105,13 @@ class _SystemHomePageState extends State<SystemHomePage> {
         target: ConnectivityPage()
     );
     drawerElements.add(item8);
+
+    final item9 = DrawerItem(
+        title: "Location",
+        icon: Icon(Icons.location_on),
+        target: LocationPage()
+    );
+    drawerElements.add(item9);
   }
 
 
