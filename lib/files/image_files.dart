@@ -107,7 +107,7 @@ class ImageFilesPageState extends State<ImageFilesPage>{
         ),
         Expanded(
           child: FlatButton(
-            child: Text("Write"),
+            child: Text("Pick"),
             onPressed: _writeToFile,
           ),
         ),
