@@ -196,7 +196,7 @@ class LocalNotificationsState extends State<LocalNotificationsPage> {
       _showAlertUnavailableOnIOS();
       return;
     }
-    final directory = await getApplicationDocumentsDirectory();
+    final directory = await getTemporaryDirectory();
     final largeIconResponse =
         await http.get('https://picsum.photos/50/?random"');
     final largeIconPath = '${directory.path}/largeIcon';
