@@ -13,32 +13,32 @@ class FilesPage extends StatefulWidget{
 
 class FilesPageState extends State<FilesPage>{
 
+  int _currentIdx = 0;
+  List<Widget> _pages = [TextFilesPage(), ImageFilesPage()];
+
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Filesystem"),
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-                text: "Text",
-              ),
-              Tab(
-                text: "Images",
-              )
-            ],
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            title: Text("Text"),
+            icon: Icon(Icons.text_fields)
           ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            TextFilesPage(),
-            ImageFilesPage()
-          ],
-        ),
+          BottomNavigationBarItem(
+            title: Text("Images"),
+            icon: Icon(Icons.image)
+          )
+        ],
+        onTap: (idx){
+          setState(() {
+            _currentIdx = idx;
+          });
+        },
+        currentIndex: _currentIdx,
       ),
+      body: _pages[_currentIdx],
     );
   }
 }

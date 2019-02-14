@@ -10,39 +10,32 @@ class CameraPage extends StatefulWidget {
 }
 
 class CameraPageState extends State<CameraPage> {
+
+  int _currentIdx = 0;
+  List<Widget> _pages = [SimpleCameraPage(), CameraScanPage()];
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Camera usage"),
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.camera_alt),
-              ),
-              Tab(
-                icon: Icon(Icons.code),
-              ),
-              Tab(
-                icon: Icon(Icons.threed_rotation),
-              )
-            ],
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            title: Text("Camera"),
+            icon: Icon(Icons.camera_alt)
           ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            SimpleCameraPage(),
-            CameraScanPage(),
-            Container(
-              child: Center(
-                child: Text("AR is currently not supported with Flutter", style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),textAlign: TextAlign.center , softWrap: true,)
-              ),
-            )
-          ],
-        ),
+          BottomNavigationBarItem(
+            title: Text("QR-Code"),
+            icon: Icon(Icons.code)
+          )
+        ],
+        currentIndex: _currentIdx,
+        onTap: (idx){
+          setState(() {
+            _currentIdx = idx;
+          });
+        },
       ),
+      body: _pages[_currentIdx],
     );
   }
 }

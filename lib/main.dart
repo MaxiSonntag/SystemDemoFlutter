@@ -50,6 +50,8 @@ class _SystemHomePageState extends State<SystemHomePage> {
 
   @override
   void initState() {
+    super.initState();
+
     final item1 = DrawerItem(
       title: "Networking",
       icon: Icon(Icons.network_wifi),
@@ -74,7 +76,7 @@ class _SystemHomePageState extends State<SystemHomePage> {
     final item4 = DrawerItem(
         title: "Files",
         icon: Icon(Icons.insert_drive_file),
-        target: NetworkingPage()
+        target: FilesPage()
     );
     drawerElements.add(item4);
 
@@ -88,7 +90,7 @@ class _SystemHomePageState extends State<SystemHomePage> {
     final item6 = DrawerItem(
         title: "Camera",
         icon: Icon(Icons.camera_alt),
-        target: NetworkingPage()
+        target: CameraPage()
     );
     drawerElements.add(item6);
 
@@ -119,24 +121,6 @@ class _SystemHomePageState extends State<SystemHomePage> {
     return drawerElements[_selectedDrawerItem].target;
   }
 
-  _checkForRoutingPages(){
-
-    Widget targetPage;
-
-    switch(_selectedDrawerItem){
-      case 3:
-        targetPage = FilesPage();
-        break;
-      case 5:
-        targetPage = CameraPage();
-        break;
-    }
-    if(targetPage != null){
-      Navigator.push(context, MaterialPageRoute(builder: (context){return targetPage;}));
-      _selectedDrawerItem = 0;
-    }
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,14 +152,13 @@ class _SystemHomePageState extends State<SystemHomePage> {
               return ListTile(
                 title: Text(drawerElements[index-1].title),
                 leading: drawerElements[index-1].icon,
+                selected: _selectedDrawerItem == index-1,
                 onTap: (){
+                  Navigator.pop(context);
                   setState(() {
                     _selectedDrawerItem = index-1;
-                    Navigator.pop(context);
-                    _checkForRoutingPages();
                   });
                 },
-                selected: _selectedDrawerItem == index-1,
               );
             }
           },
