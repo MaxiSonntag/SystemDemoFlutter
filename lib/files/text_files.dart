@@ -34,7 +34,8 @@ class TextFilesPageState extends State<TextFilesPage> {
     if(!await file.exists()){
       file.createSync();
     }
-    file.writeAsString(_textFieldCtrl.text);
+    await file.writeAsString(_textFieldCtrl.text);
+    _loadFromFile();
   }
 
   _loadFromFile() async {
@@ -69,7 +70,6 @@ class TextFilesPageState extends State<TextFilesPage> {
     final file = File("${subfolder.path}/$_fileName");
     if(await file.exists()){
       file.delete();
-      subfolder.delete();
     }
     setState(() {
       outputText = noFileText;
@@ -82,12 +82,6 @@ class TextFilesPageState extends State<TextFilesPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Expanded(
-          child: FlatButton(
-            child: Text("Load"),
-            onPressed: _loadFromFile,
-          ),
-        ),
         Expanded(
           child: FlatButton(
             child: Text("Write"),
@@ -106,33 +100,35 @@ class TextFilesPageState extends State<TextFilesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _getButtonRow(),
-          TextField(
-            controller: _textFieldCtrl,
-            decoration: InputDecoration(labelText: "Enter some text"),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 16.0),
-            child: Text("File content: ", textAlign: TextAlign.start,),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 8.0),
-            color: Colors.black12,
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              outputText,
-              style: TextStyle(color: Colors.black54),
-              softWrap: true,
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _getButtonRow(),
+            TextField(
+              controller: _textFieldCtrl,
+              decoration: InputDecoration(labelText: "Enter some text"),
             ),
-          ),
-        ],
+            Container(
+              margin: EdgeInsets.only(top: 16.0),
+              child: Text("File content: ", textAlign: TextAlign.start,),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 8.0),
+              color: Colors.black12,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                outputText,
+                style: TextStyle(color: Colors.black54),
+                softWrap: true,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

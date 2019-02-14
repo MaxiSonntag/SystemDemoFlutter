@@ -79,6 +79,26 @@ class SimpleCameraPageState extends State<SimpleCameraPage> {
             return;
           }
           setState(() {});
+        },
+        onError: (e){
+          print("Camera Error: $e");
+          showDialog(
+              context: context,
+            builder: (context){
+                return AlertDialog(
+                  title: Text("Permission denied"),
+                  content: Text("You need to grant permission for camera usage."),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("Okay"),
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                );
+            }
+          );
         });
       });
     });

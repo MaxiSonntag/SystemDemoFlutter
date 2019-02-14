@@ -44,8 +44,13 @@ class LocationPageState extends State<LocationPage> {
 
   Future<bool> _startLocationTracking() async {
     try {
-      //if(Theme.of(context).platform == TargetPlatform.iOS){
-      _currentLocation = await location.getLocation();
+      if(Theme.of(context).platform == TargetPlatform.iOS){
+        var granted = await _checkPermission();
+        print("Permissions granted: $granted");
+      }
+      _currentLocation = await location.getLocation().timeout(Duration(seconds: 3), onTimeout: (){
+        //throw PlatformException(code: "BT_DISABLED");
+      });
       //}
 
       listener =
@@ -68,10 +73,10 @@ class LocationPageState extends State<LocationPage> {
     return true;
   }
 
-  /*Future<bool> _checkPermission() async {
-    /*var _permissionGranted = await location.hasPermission();
+  Future<bool> _checkPermission() async {
+    var _permissionGranted = await location.hasPermission();
     print("PERMISSION: $_permissionGranted");
-    return _permissionGranted;*/
+    /*return _permissionGranted;*/
 
     var isGranted = false;
     isGranted =
@@ -83,7 +88,7 @@ class LocationPageState extends State<LocationPage> {
       isGranted = _status == PermissionStatus.authorized;
     }
     return isGranted;
-  }*/
+  }
 
   _showInfoDialog(DialogType type) {
     var title;

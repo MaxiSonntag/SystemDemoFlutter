@@ -21,5 +21,8 @@ enum CameraMediaTypes{
 
 enum DialogType{
   Info,
-  BT
+  BT,
+  BTPermission,
+  GPSPermission,
+  GPSEnabled
 }

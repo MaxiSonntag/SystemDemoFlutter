@@ -99,7 +99,12 @@ class BluetoothPageState extends State<BluetoothPage> {
         foundDevices.add(scanResult);
       }
       setState(() {});
-    });
+    },
+      onError: (e){
+        print("Bluetooth error: $e");
+        showInfoDialog(DialogType.BTPermission);
+      }
+    );
 
     Future.delayed(Duration(seconds: 4), () {
       _stopScan();
@@ -119,6 +124,11 @@ class BluetoothPageState extends State<BluetoothPage> {
       case DialogType.Info:{
         title = "Info";
         content = "This plugin only supports Bluetooth LE. If there is no BT LE device near you, you will possibly see several unnamed networks, like Wifi or Bluetooth Classic devices. If connection succeeds, you may see the devices name the next time you scan. (iOS only)";
+        break;
+      }
+      case DialogType.BTPermission:{
+        title="Permission denied";
+        content="You need to grant permission for Bluetooth usage.";
         break;
       }
       default:

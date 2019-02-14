@@ -19,16 +19,28 @@ class ImageFilesPageState extends State<ImageFilesPage>{
   final _subfolderName = "files";
   final _fileName = "imageFile.png";
 
-  _loadFromFile() async{
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFromFile(true);
+  }
+
+  _loadFromFile(bool initialLoad) async{
     final documentsDir = await getApplicationDocumentsDirectory();
     final directory = Directory("${documentsDir.path}/$_subfolderName");
     if(!await directory.exists()){
-      _showNoFileDialog();
+      if(!initialLoad){
+        _showNoFileDialog();
+      }
       return;
     }
     final file = File("${directory.path}/$_fileName");
     if(!await file.exists()){
-      _showNoFileDialog();
+      if(!initialLoad){
+        _showNoFileDialog();
+      }
+
       return;
     }
 
@@ -61,6 +73,9 @@ class ImageFilesPageState extends State<ImageFilesPage>{
 
   _writeToFile() async{
     final picked = await ImagePicker.pickImage(source: ImageSource.gallery);
+    if(picked == null){
+      return;
+    }
     setState(() {
       pickedImage = Image.file(picked);
     });
@@ -74,7 +89,10 @@ class ImageFilesPageState extends State<ImageFilesPage>{
     if(!await file.exists()){
       file.createSync();
     }
-    file.writeAsBytes(await picked.readAsBytes()).whenComplete((){print("Save complete!");});
+    file.writeAsBytes(await picked.readAsBytes()).whenComplete((){
+      print("Save complete!");
+      _loadFromFile(false);
+    });
   }
 
   _deleteFile() async{
@@ -86,7 +104,6 @@ class ImageFilesPageState extends State<ImageFilesPage>{
     final file = File("${subfolder.path}/$_fileName");
     if(await file.exists()){
       file.delete();
-      subfolder.delete();
     }
     setState(() {
       pickedImage = null;
@@ -99,12 +116,6 @@ class ImageFilesPageState extends State<ImageFilesPage>{
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Expanded(
-          child: FlatButton(
-            child: Text("Load"),
-            onPressed: _loadFromFile,
-          ),
-        ),
         Expanded(
           child: FlatButton(
             child: Text("Pick"),

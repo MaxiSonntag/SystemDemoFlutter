@@ -17,14 +17,32 @@ class ContactsPage extends StatefulWidget{
 class ContactsPageState extends State<ContactsPage>{
 
   var isLoading = true;
+  var hasPermissions;
   List<Contact> allContacts;
 
 
+  @override
+  void initState() {
+    super.initState();
+    loadContacts();
+  }
+
   Widget getContent(){
     if(isLoading){
-      loadContacts();
       return Center(
         child: CircularProgressIndicator(),
+      );
+    }
+    if(!hasPermissions){
+      return Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text("You need to grant permissions for contacts usage.", softWrap: true, textAlign: TextAlign.center,),
+            FlatButton.icon(onPressed: loadContacts, icon: Icon(Icons.refresh), label: Text("Retry"))
+          ],
+        ),
       );
     }
     return Scaffold(
@@ -48,6 +66,10 @@ class ContactsPageState extends State<ContactsPage>{
   }
 
   loadContacts() async{
+    setState(() {
+      isLoading = true;
+    });
+
     final read = await checkPermissions(Permission.ReadContacts);
     final write = await checkPermissions(Permission.WriteContacts);
     final permissions = read && write;
@@ -60,7 +82,15 @@ class ContactsPageState extends State<ContactsPage>{
         return c1.displayName.toLowerCase().compareTo(c2.displayName.toLowerCase());
       });
       setState(() {
+        hasPermissions = true;
         isLoading = false;
+      });
+    }
+    else{
+      setState(() {
+        hasPermissions = false;
+        isLoading = false;
+        
       });
     }
 
