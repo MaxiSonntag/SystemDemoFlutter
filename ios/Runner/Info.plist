@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.msonntag.systemFlutter130397</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -26,6 +26,10 @@
 	<string>Can we use the camera please?</string>
 	<key>NSContactsUsageDescription</key>
 	<string>This app requires contacts access to work properly.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need to access your GPS to use this feature.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need to access your GPS to use this feature.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Can we use the microphone please?</string>
 	<key>UILaunchStoryboardName</key>
@@ -45,10 +49,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need to access your GPS to use this feature.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We need to access your GPS to use this feature.</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
